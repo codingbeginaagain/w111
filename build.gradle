@@ -23,11 +23,24 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')
-
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '3.0.0'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.3.3'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.34'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
+    implementation group: 'hikari-cp', name: 'hikari-cp', version: '3.1.0'
+
+
+
 }
 
 test {
     useJUnitPlatform()
+
 }
