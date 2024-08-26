@@ -1,18 +1,17 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="UTF-8"
 %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>List Page</title>
+    <title>Title</title>
 </head>
 <body>
 <h1>List Page</h1>
 
 <ul>
-    <c:forEach var="dto" items="${list}">
+    <c:forEach var="dto"  items="${list}">
         <li>${dto}</li>
     </c:forEach>
 </ul>
@@ -25,7 +24,7 @@
 </c:if>
 
 <c:choose>
-    <c:when test="${list.size() % 2 == 0}">
+    <c:when test="${list.size() % 2  == 0}">
         짝수
     </c:when>
     <c:otherwise>

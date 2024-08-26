@@ -1,6 +1,5 @@
 package org.zerock.w111.todo.service;
 
-
 import org.zerock.w111.todo.dto.TodoDTO;
 
 import java.time.LocalDate;
@@ -25,11 +24,12 @@ public enum TodoService {
     }
 
     public List<TodoDTO> getList() {
+
         List<TodoDTO> todoDTOS = IntStream.range(0,10).mapToObj(i->{
             TodoDTO dto = new TodoDTO();
             dto.setTno((long)i);
-            dto.setTitle("TODO..."+i);
-            dto.setDuedate(LocalDate.now());
+            dto.setTitle("TODO..." + i);
+            dto.setDueDate(LocalDate.now());
             return dto;
         }).collect(Collectors.toList());
 
@@ -40,7 +40,7 @@ public enum TodoService {
         TodoDTO dto = new TodoDTO();
         dto.setTno(tno);
         dto.setTitle("Sample TODO");
-        dto.setDuedate(LocalDate.now());
+        dto.setDueDate(LocalDate.now());
         dto.setFinished(true);
         return dto;
     }

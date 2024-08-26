@@ -15,6 +15,7 @@ public class SampleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         System.out.println("SampleServlet do Get");
+
         req.getHeaderNames(); //Http 헤더 내용을 찾아내는 기능
         //req.getHeader("name");
 

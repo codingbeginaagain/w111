@@ -1,6 +1,5 @@
 package org.zerock.w111.todo;
 
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +11,7 @@ import org.zerock.w111.todo.service.TodoService;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "todoListController",urlPatterns = "/todo/list")
+@WebServlet(name = "todoListController" , urlPatterns = "/todo/list")
 public class TodoListController extends HttpServlet {
 
     @Override
@@ -20,8 +19,7 @@ public class TodoListController extends HttpServlet {
         System.out.println("/todo/list");
 
         List<TodoDTO> dtoList = TodoService.INSTANCE.getList();
-
-
+        req.setAttribute("list", dtoList);
 
         req.getRequestDispatcher("/WEB-INF/todo/list.jsp").forward(req, resp);
     }
