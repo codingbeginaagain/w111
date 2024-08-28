@@ -11,7 +11,7 @@
 <h1>List Page</h1>
 
 <ul>
-    <c:forEach var="dto"  items="${list}">
+    <c:forEach var="dto" items="${list}">
         <li>
             <span><a href="/todo/read?tno=${dto.tno}">${dto.tno}</a></span>
             <span>${dto.title}</span>
@@ -22,6 +22,9 @@
         </li>
     </c:forEach>
 </ul>
+<form action="/logout" method="post">
+    <button type="submit">LOGOUT</button>
+</form>
 
 <%--<c:if test="${list.size() % 2 == 0}">--%>
 <%--    짝수--%>

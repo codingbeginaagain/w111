@@ -34,6 +34,13 @@ public class TodoRegisterController extends HttpServlet {
             resp.sendRedirect( "/login");
             return;
         }
+
+        if(session.getAttribute("loginInfo") == null){
+            log.info("로그인 정보가 없는 사용자");
+            resp.sendRedirect( "/login");
+            return;
+        }
+
         req.getRequestDispatcher("/WEB-INF/todo/register.jsp").forward(req, resp);
     }
 
