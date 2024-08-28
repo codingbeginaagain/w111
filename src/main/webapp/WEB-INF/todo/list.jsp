@@ -12,25 +12,32 @@
 
 <ul>
     <c:forEach var="dto"  items="${list}">
-        <li>${dto}</li>
+        <li>
+            <span><a href="/todo/read?tno=${dto.tno}">${dto.tno}</a></span>
+            <span>${dto.title}</span>
+            <span>${dto.dueDate}</span>
+            <span>${dto.finished}</span>
+            <span>${dto.finished ? "DONE" : "NOT YET"}</span>
+
+        </li>
     </c:forEach>
 </ul>
 
-<c:if test="${list.size() % 2 == 0}">
-    짝수
-</c:if>
-<c:if test="${list.size() % 2 != 0}">
-    홀수
-</c:if>
+<%--<c:if test="${list.size() % 2 == 0}">--%>
+<%--    짝수--%>
+<%--</c:if>--%>
+<%--<c:if test="${list.size() % 2 != 0}">--%>
+<%--    홀수--%>
+<%--</c:if>--%>
 
-<c:choose>
-    <c:when test="${list.size() % 2  == 0}">
-        짝수
-    </c:when>
-    <c:otherwise>
-        홀수
-    </c:otherwise>
-</c:choose>
+<%--<c:choose>--%>
+<%--    <c:when test="${list.size() % 2  == 0}">--%>
+<%--        짝수--%>
+<%--    </c:when>--%>
+<%--    <c:otherwise>--%>
+<%--        홀수--%>
+<%--    </c:otherwise>--%>
+<%--</c:choose>--%>
 
 </body>
 </html>

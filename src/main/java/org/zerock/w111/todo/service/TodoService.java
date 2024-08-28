@@ -1,12 +1,18 @@
 package org.zerock.w111.todo.service;
 
+import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
+import org.zerock.w111.todo.dao.TodoDAO;
+import org.zerock.w111.todo.domain.TodoVO;
 import org.zerock.w111.todo.dto.TodoDTO;
+import org.zerock.w111.todo.util.MapperUtil;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Log4j2
 public enum TodoService {
     //서비스 객체는 기능들의 묶음
     //CRUD 기능들을 모두 서비스 객체에 모아서 구현된다.
@@ -18,16 +24,41 @@ public enum TodoService {
     //객체를 하나만 생성해서 사용한다.
     //싱글톤 패턴이라고 한다.
 
-    public void register(TodoDTO todoDTO){
-        System.out.println("DEBUG ... " + todoDTO);
+    private TodoDAO dao;
+    private ModelMapper modelMapper;
+
+    TodoService() {
+        dao = new TodoDAO();
+        modelMapper = MapperUtil.INSTANCE.get();
 
     }
 
+    public void register(TodoDTO todoDTO) throws Exception {
+        TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+//        System.out.println(todoVO);
+        log.info("***"+todoVO);
+        dao.insert(todoVO);
+    }
+
+    public List<TodoDTO> listAll() throws Exception {
+        List<TodoVO> voList = dao.selectAll();
+
+        log.info("listAll .........");
+        log.info(voList);
+
+        List<TodoDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo, TodoDTO.class))
+                    .collect(Collectors.toList());
+
+        return dtoList;
+    }
+
+
     public List<TodoDTO> getList() {
 
-        List<TodoDTO> todoDTOS = IntStream.range(0,10).mapToObj(i->{
+        List<TodoDTO> todoDTOS = IntStream.range(0, 10).mapToObj(i -> {
             TodoDTO dto = new TodoDTO();
-            dto.setTno((long)i);
+            dto.setTno((long) i);
             dto.setTitle("TODO..." + i);
             dto.setDueDate(LocalDate.now());
             return dto;
@@ -36,13 +67,24 @@ public enum TodoService {
         return todoDTOS;
     }
 
-    public TodoDTO get(Long tno){
-        TodoDTO dto = new TodoDTO();
-        dto.setTno(tno);
-        dto.setTitle("Sample TODO");
-        dto.setDueDate(LocalDate.now());
-        dto.setFinished(true);
+    public TodoDTO get(Long tno) throws Exception {
+
+        log.info(" tno ::"+tno);
+        TodoVO todoVO = dao.selectOne(tno);
+        TodoDTO dto = modelMapper.map(todoVO, TodoDTO.class);
         return dto;
     }
 
+    public void remove(Long tno) throws Exception {
+
+        log.info(" tno ::"+tno);
+        dao.deleteOne(tno);
+    }
+    public void modify(TodoDTO todoDTO) throws Exception {
+        log.info(" todoDTO ::"+todoDTO);
+
+        TodoVO vo = modelMapper.map(todoDTO, TodoVO.class);
+        dao.updateOne(vo);
+
+    }
 }
