@@ -3,10 +3,7 @@ package org.zerock.w111.todo.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
@@ -23,6 +20,17 @@ public class LogoutController extends HttpServlet {
         HttpSession session = req.getSession();
 
         session.removeAttribute("loginInfo");
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (Cookie ck : cookies) {
+                if ("remember-me".equals(ck.getName())) {
+                    ck.setMaxAge(0);
+                    ck.setPath("/");
+                    resp.addCookie(ck);
+                }
+            }
+        }
+
         session.invalidate();
 
         resp.sendRedirect("/");

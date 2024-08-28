@@ -8,7 +8,10 @@
     <title>Title</title>
 </head>
 <body>
-<h1>List Page</h1>
+<h1>Todo List</h1>
+
+<h2>${loginInfo}</h2>
+<h2>${loginInfo.mname}</h2>
 
 <ul>
     <c:forEach var="dto" items="${list}">
